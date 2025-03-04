@@ -15,24 +15,23 @@ part 'movie_detail_state.dart';
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final MovieRepo movieRepo;
   MovieDetailBloc(this.movieRepo) : super(const MovieDetailState()) {
-    on<_GetMovieDetails>(_getMovieDetails);
-  }
+    on<_GetMovieDetails>((event, emit) async {
+      try {
+        emit(state.copyWith(status: Statuses.loading));
 
-  Future<void> _getMovieDetails(
-    _GetMovieDetails event,
-    Emitter<MovieDetailState> emit,
-  ) async {
-    emit(state.copyWith(status: Statuses.Loading));
-    try {
-      final result = await movieRepo.getMovieDetails(movieId: event.movieId);
-      log(result.toString());
-      emit(state.copyWith(movieDetails: result, status: Statuses.Success));
-      log("state: ${state.status}");
-    } catch (e) {
-      emit(state.copyWith(
-        errorMessage: e.toString(),
-        status: Statuses.Error,
-      ));
-    }
+        final result = await movieRepo.getMovieDetails(
+          movieId: event.movieId,
+        );
+
+        emit(state.copyWith(movieDetails: result, status: Statuses.success));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            errorMessage: e.toString(),
+            status: Statuses.error,
+          ),
+        );
+      }
+    });
   }
 }

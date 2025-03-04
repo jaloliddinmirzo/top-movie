@@ -42,10 +42,12 @@ class CustomSearchDelegate extends SearchDelegate {
 
     return BlocBuilder<MovieSearchBloc, MovieSearchState>(
       builder: (context, state) {
-        if (state.status == Statuses.Loading) {
+        if (state.status == Statuses.loading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state.status == Statuses.Error) {
-          return Center(child: Text("Xatolik: ${state.errorMessage}"));
+        } else if (state.status == Statuses.error) {
+          return Center(
+            child: Text(state.errorMessage ?? 'An error occurred'),
+          );
         } else if (state.movieSearches?.results?.isEmpty ?? true) {
           return const Center(child: Text("Hech qanday natija topilmadi"));
         }
@@ -127,7 +129,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
     return BlocBuilder<MovieSearchBloc, MovieSearchState>(
       builder: (context, state) {
-        if (state.status == Statuses.Loading) {
+        if (state.status == Statuses.loading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state.movieSearches?.results?.isEmpty ?? true) {
           return const Center(child: Text("Tavsiya mavjud emas"));

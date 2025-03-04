@@ -1,6 +1,6 @@
 enum Statuses {
-  Initial,
-  Loading,
-  Success,
-  Error,
+  initial,
+  loading,
+  success,
+  error,
 }

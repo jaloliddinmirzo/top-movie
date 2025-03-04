@@ -9,6 +9,7 @@ import 'package:movie_app/presentation/screens/movie_dsetail_screen.dart';
 import 'package:movie_app/presentation/widgets/custom_app_bar.dart';
 import 'package:movie_app/presentation/widgets/custom_bottom_nav.dart';
 import 'package:movie_app/presentation/widgets/filter_section.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +25,29 @@ class _HomeScreenState extends State<HomeScreen> {
     // setState(() {
     //   _currentIndex = index;
     // });
+  }
+
+  Widget _buildShimmerSlider() {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 320,
+        enlargeCenterPage: true,
+        aspectRatio: 16 / 9,
+        viewportFraction: 0.6,
+      ),
+      items: List.generate(3, (index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[900]!,
+          highlightColor: Colors.grey[800]!,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+        );
+      }),
+    );
   }
 
   @override
@@ -60,11 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
               bloc: context.read<MovieBloc>(),
               builder: (context, state) {
                 if (state is MovieLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return _buildShimmerSlider();
                 } else if (state is MovieSucces) {
-                  // log(state.movies[index].title.toString());
                   final movies = state.movies;
                   return CarouselSlider(
                     options: CarouselOptions(
@@ -103,9 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }).toList(),
                   );
                 }
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return _buildShimmerSlider();
               },
             ),
           ],

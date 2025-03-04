@@ -360,7 +360,7 @@ class __$$MovieDetailStateImplCopyWithImpl<$Res>
 
 class _$MovieDetailStateImpl implements _MovieDetailState {
   const _$MovieDetailStateImpl(
-      {this.status = Statuses.Initial, this.movieDetails, this.errorMessage});
+      {this.status = Statuses.initial, this.movieDetails, this.errorMessage});
 
   @override
   @JsonKey()

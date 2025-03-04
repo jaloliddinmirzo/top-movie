@@ -275,8 +275,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: !(_controller?.value.isFullScreen ?? false),
-      onPopInvoked: (bool didPop) async {
-        if (!didPop) {
+      onPopInvoked: (didPop) {
+        if (!didPop && (_controller?.value.isFullScreen ?? false)) {
           _controller?.toggleFullScreenMode();
         }
       },
@@ -296,12 +296,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
           builder: (context, state) {
             switch (state.status) {
-              case Statuses.Loading:
+              case Statuses.loading:
                 return const Center(
                   child: CircularProgressIndicator(color: Colors.white),
                 );
 
-              case Statuses.Success:
+              case Statuses.success:
                 final videos = state.movieDetails?.results ?? [];
                 if (videos.isEmpty) {
                   return const Center(
@@ -348,11 +348,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   ),
                 );
 
-              case Statuses.Error:
+              case Statuses.error:
                 return _buildErrorView(
                     state.errorMessage ?? 'An error occurred');
 
-              default:
+              case Statuses.initial:
                 return const SizedBox.shrink();
             }
           },

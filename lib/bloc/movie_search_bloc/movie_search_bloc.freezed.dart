@@ -364,7 +364,7 @@ class __$$MovieSearchStateImplCopyWithImpl<$Res>
 
 class _$MovieSearchStateImpl implements _MovieSearchState {
   const _$MovieSearchStateImpl(
-      {this.status = Statuses.Initial, this.movieSearches, this.errorMessage});
+      {this.status = Statuses.initial, this.movieSearches, this.errorMessage});
 
   @override
   @JsonKey()

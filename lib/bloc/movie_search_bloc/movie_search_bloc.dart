@@ -15,20 +15,22 @@ part 'movie_search_state.dart';
 class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
   final MovieRepo movieRepo;
   MovieSearchBloc(this.movieRepo) : super(const MovieSearchState()) {
-    on(_getMovieSearchs);
-  }
+    on<_GetMovieSearch>((event, emit) async {
+      try {
+        emit(state.copyWith(status: Statuses.loading));
 
-  Future<void> _getMovieSearchs(_GetMovieSearch event, Emitter emit) async {
-    emit(state.copyWith(status: Statuses.Loading));
-    try {
-      final result = await movieRepo.getMovieSearchByTitle(title: event.title);
-      log("Keldi search $result");
-      emit(state.copyWith(movieSearches: result, status: Statuses.Success));
-    } catch (e) {
-      emit(state.copyWith(
-        errorMessage: e.toString(),
-        status: Statuses.Error,
-      ));
-    }
+        final result =
+            await movieRepo.getMovieSearchByTitle(title: event.title);
+        log("Keldi search $result");
+        emit(state.copyWith(movieSearches: result, status: Statuses.success));
+      } catch (e) {
+        emit(
+          state.copyWith(
+            errorMessage: e.toString(),
+            status: Statuses.error,
+          ),
+        );
+      }
+    });
   }
 }
