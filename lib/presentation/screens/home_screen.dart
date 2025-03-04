@@ -27,6 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
     // });
   }
 
+  Future<void> _onRefresh() async {
+    context.read<MovieBloc>().add(GetTopMovies());
+  }
+
   Widget _buildShimmerSlider() {
     return CarouselSlider(
       options: CarouselOptions(
@@ -59,75 +63,81 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: Size.fromHeight(200),
         child: CustomAppBar(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Filters",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+      body: RefreshIndicator(
+        onRefresh: _onRefresh,
+        backgroundColor: Colors.grey[900],
+        color: Colors.white,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Filters",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 12),
-                    FilterSection(),
-                    SizedBox(height: 22),
-                  ]),
-            ),
-            BlocBuilder<MovieBloc, MovieSate>(
-              bloc: context.read<MovieBloc>(),
-              builder: (context, state) {
-                if (state is MovieLoading) {
-                  return _buildShimmerSlider();
-                } else if (state is MovieSucces) {
-                  final movies = state.movies;
-                  return CarouselSlider(
-                    options: CarouselOptions(
-                      height: 320,
-                      enlargeCenterPage: true,
-                      autoPlay: true,
-                      aspectRatio: 16 / 9,
-                      enableInfiniteScroll: true,
-                      viewportFraction: 0.6,
-                    ),
-                    items: movies.map((movie) {
-                      return GestureDetector(
-                        onTap: () {
-                          context.read<MovieDetailBloc>().add(
-                              MovieDetailEvent.getMovieDetails(
-                                  movieId: int.parse(movie.id.toString())));
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MovieDetailScreen(),
-                            ),
-                          );
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Hero(
-                            tag: 'movie_image_${movie.id}',
-                            child: Image.network(
-                              "https://image.tmdb.org/t/p/w500${movie.posterPath}",
-                              fit: BoxFit.cover,
-                              width: double.infinity,
+                      SizedBox(height: 12),
+                      FilterSection(),
+                      SizedBox(height: 22),
+                    ]),
+              ),
+              BlocBuilder<MovieBloc, MovieSate>(
+                bloc: context.read<MovieBloc>(),
+                builder: (context, state) {
+                  if (state is MovieLoading) {
+                    return _buildShimmerSlider();
+                  } else if (state is MovieSucces) {
+                    final movies = state.movies;
+                    return CarouselSlider(
+                      options: CarouselOptions(
+                        height: 320,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        aspectRatio: 16 / 9,
+                        enableInfiniteScroll: true,
+                        viewportFraction: 0.6,
+                      ),
+                      items: movies.map((movie) {
+                        return GestureDetector(
+                          onTap: () {
+                            context.read<MovieDetailBloc>().add(
+                                MovieDetailEvent.getMovieDetails(
+                                    movieId: int.parse(movie.id.toString())));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MovieDetailScreen(),
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Hero(
+                              tag: 'movie_image_${movie.id}',
+                              child: Image.network(
+                                "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }).toList(),
-                  );
-                }
-                return _buildShimmerSlider();
-              },
-            ),
-          ],
+                        );
+                      }).toList(),
+                    );
+                  }
+                  return _buildShimmerSlider();
+                },
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: CustomBottomNav(
