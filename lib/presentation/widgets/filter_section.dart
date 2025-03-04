@@ -15,7 +15,7 @@ class FilterSection extends StatelessWidget {
     return SizedBox(
       height: 100, // Karta balandligi
       child: ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(
+        separatorBuilder: (context, index) => const SizedBox(
           width: 10,
         ),
         scrollDirection: Axis.horizontal,
