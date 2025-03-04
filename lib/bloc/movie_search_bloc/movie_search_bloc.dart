@@ -12,10 +12,9 @@ part 'movie_search_bloc.freezed.dart';
 part 'movie_search_event.dart';
 part 'movie_search_state.dart';
 
-
 class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
   final MovieRepo movieRepo;
-  MovieSearchBloc(this.movieRepo) : super(MovieSearchState()) {
+  MovieSearchBloc(this.movieRepo) : super(const MovieSearchState()) {
     on(_getMovieSearchs);
   }
 

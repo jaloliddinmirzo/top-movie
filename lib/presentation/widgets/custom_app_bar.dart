@@ -19,13 +19,13 @@ class CustomAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "Hello Daizy!",
                     style: TextStyle(
@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Check for latest addition.",
+                    "Check for latest additions",
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white70,
@@ -43,7 +43,7 @@ class CustomAppBar extends StatelessWidget {
                   ),
                 ],
               ),
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 20,
                 backgroundImage: AssetImage("assets/images/avatar.png"),
               ),

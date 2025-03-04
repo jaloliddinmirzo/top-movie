@@ -14,9 +14,7 @@ part 'movie_detail_state.dart';
 
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final MovieRepo movieRepo;
-  MovieDetailBloc(
-    this.movieRepo,
-  ) : super(MovieDetailState()) {
+  MovieDetailBloc(this.movieRepo) : super(const MovieDetailState()) {
     on<_GetMovieDetails>(_getMovieDetails);
   }
 
