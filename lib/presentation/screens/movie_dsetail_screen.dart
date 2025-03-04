@@ -228,10 +228,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             case Statuses.Success:
               final videos = state.movieDetails?.results ?? [];
               if (videos.isEmpty) {
-                return Center(
+                return const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(Icons.videocam_off, color: Colors.grey, size: 48),
                       SizedBox(height: 16),
                       Text(

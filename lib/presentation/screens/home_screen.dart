@@ -31,18 +31,18 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<MovieBloc>().add(GetTopMovies());
     return Scaffold(
       backgroundColor: const Color(0xff0F1017),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(160),
-        child: const CustomAppBar(),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(160),
+        child: CustomAppBar(),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Filters",
                       style: TextStyle(
@@ -60,8 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
               bloc: context.read<MovieBloc>(),
               builder: (context, state) {
                 if (state is MovieLoading) {
-                  return Center(
-                    child: const CircularProgressIndicator(),
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
                 } else if (state is MovieSucces) {
                   // log(state.movies[index].title.toString());
@@ -103,8 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     }).toList(),
                   );
                 }
-                return Center(
-                  child: const CircularProgressIndicator(),
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
               },
             ),
