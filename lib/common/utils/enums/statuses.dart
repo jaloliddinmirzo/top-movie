@@ -1,1 +1,6 @@
-enum Statuses { Initial, Loading, Success, Error ,}
+enum Statuses {
+  Initial,
+  Loading,
+  Success,
+  Error,
+}

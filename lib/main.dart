@@ -8,7 +8,7 @@ import 'package:movie_app/data/repositories/movie_repo.dart';
 import 'package:movie_app/presentation/screens/home_screen.dart';
 
 void main() {
-  Bloc.observer = MyBlocObserver();
+  Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 

@@ -95,17 +95,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         onReady: () {
           setState(() {});
         },
-        bottomActions: [
+        bottomActions: const [
           CurrentPosition(),
           ProgressBar(
             isExpanded: true,
-            colors: const ProgressBarColors(
+            colors: ProgressBarColors(
               playedColor: Colors.red,
               handleColor: Colors.redAccent,
             ),
           ),
           RemainingDuration(),
-          const PlaybackSpeedButton(),
+          PlaybackSpeedButton(),
         ],
       ),
       builder: (context, player) {
@@ -273,13 +273,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (_controller?.value.isFullScreen ?? false) {
+    return PopScope(
+      canPop: !(_controller?.value.isFullScreen ?? false),
+      onPopInvoked: (bool didPop) async {
+        if (!didPop) {
           _controller?.toggleFullScreenMode();
-          return false;
         }
-        return true;
       },
       child: Scaffold(
         backgroundColor: const Color(0xff0F1017),
