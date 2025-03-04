@@ -11,22 +11,29 @@ class MovieInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _backgroundColor,
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          _buildAppBar(),
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildRatingAndReleaseDate(),
-                _buildOverviewSection(),
-                _buildAdditionalInformation(),
-                const SizedBox(height: 16),
-              ],
+      body: SafeArea(
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            _buildAppBar(),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildRatingAndReleaseDate(),
+                    const SizedBox(height: 16),
+                    _buildOverviewSection(),
+                    const SizedBox(height: 16),
+                    _buildAdditionalInformation(),
+                    const SizedBox(height: 16),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -231,30 +238,27 @@ class MovieInfoScreen extends StatelessWidget {
   }
 
   Widget _buildOverviewSection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Overview',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Overview',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
-          const SizedBox(height: 12),
-          Text(
-            movie.overview ?? "No overview available",
-            style: TextStyle(
-              fontSize: 16,
-              height: 1.6,
-              color: Colors.grey[300],
-            ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          movie.overview ?? "No overview available",
+          style: TextStyle(
+            fontSize: 16,
+            height: 1.6,
+            color: Colors.grey[300],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

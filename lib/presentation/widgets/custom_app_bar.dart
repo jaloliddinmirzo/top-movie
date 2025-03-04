@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Check for latest additions",
+                    "Check for latest addition.",
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white70,
@@ -51,8 +51,11 @@ class CustomAppBar extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           TextField(
-            onTap: () =>
-                showSearch(context: context, delegate: CustomSearchDelegate()),
+            readOnly: true,
+            onTap: () {
+              FocusScope.of(context).unfocus();
+              showSearch(context: context, delegate: CustomSearchDelegate());
+            },
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
               filled: true,

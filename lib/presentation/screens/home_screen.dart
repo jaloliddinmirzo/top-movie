@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xff0F1017),
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(160),
+        preferredSize: Size.fromHeight(200),
         child: CustomAppBar(),
       ),
       body: SingleChildScrollView(
