@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
     branches:
       - main
+      - master
 
 jobs:
   build:
@@ -18,10 +20,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          repository: jaloliddinmirzo/top-movie
-          token: ${{ secrets.PAT }}
-          fetch-depth: 0
 
       - name: Set Up Java
         uses: actions/setup-java@v3.12.0
@@ -41,14 +39,6 @@ jobs:
 
       - name: Format Code
         run: dart format .
-
-      - name: Commit Formatting Changes
-        run: |
-          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
-          git config --local user.name "${{ github.actor }}"
-          git add .
-          git diff --quiet && git diff --staged --quiet || git commit -m "style: format dart code"
-          git push origin HEAD:${{ github.ref }}
 
       - name: Analyze Project Source
         run: flutter analyze
