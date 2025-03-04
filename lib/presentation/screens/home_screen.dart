@@ -30,10 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     context.read<MovieBloc>().add(GetTopMovies());
     return Scaffold(
-      backgroundColor: Color(0xff0F1017),
+      backgroundColor: const Color(0xff0F1017),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(160),
-        child: CustomAppBar(),
+        child: const CustomAppBar(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -60,8 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
               bloc: context.read<MovieBloc>(),
               builder: (context, state) {
                 if (state is MovieLoading) {
-                  Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: const CircularProgressIndicator(),
                   );
                 } else if (state is MovieSucces) {
                   // log(state.movies[index].title.toString());
@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: const CircularProgressIndicator(),
                 );
               },
             ),
